@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "564017145948",
+    "project_id": "challenge-for-future",
+    "storage_bucket": "challenge-for-future.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:564017145948:android:1c3f0daf2a05b7b6a71e99",
+        "android_client_info": {
+          "package_name": "com.questmill.cff"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "564017145948-fnkiqt2644nbcsb7ee008goo09h62sdv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDqHAQJGdeT07XCS4_r1CzyWoFnwdgKhds"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "564017145948-fnkiqt2644nbcsb7ee008goo09h62sdv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
