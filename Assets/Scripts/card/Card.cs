@@ -10,11 +10,14 @@ namespace QM.Gaming
 {
     public class Card : MonoBehaviour
     {
+        public CardBehaviour behaviour;
+
         public string title = "Untitled";
-        public CardState state = CardState.LOCKED;
+        public CardState state;
 
         public TextMeshProUGUI textUI;
         public GameObject labelUI;
+        public TextMeshProUGUI labelTextUI;
         public Image topGlowImage;
         public Image itemImage;
         public Sprite itemSprite;
@@ -23,7 +26,6 @@ namespace QM.Gaming
         public Sprite viewSprite;
         public string sceneName;
 
-        private TextMeshProUGUI labelTextUI;
         private Button button;
         private Image buttonBgImage;
         private TextMeshProUGUI buttonText;
@@ -90,10 +92,11 @@ namespace QM.Gaming
             }
         }
 
-        private void SetState(CardState newState)
-        {
-            TextMeshProUGUI labelTextUI = labelUI.GetComponentInChildren<TextMeshProUGUI>();
 
+        internal void SetState(CardState newState)
+        {
+            // return;
+            
             itemImage.sprite = itemSprite;
 
             Image labelImage = labelUI.GetComponent<Image>();

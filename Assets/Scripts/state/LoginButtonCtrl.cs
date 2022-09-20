@@ -9,11 +9,10 @@ public class LoginButtonCtrl : MonoBehaviour
     public TextMeshProUGUI tmpui;
 
     // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
         // register for changes:
         GCtrl.LoggedInStateChanged += SetLoginState;
-        SetLoginState(GCtrl.LoggedInState);
     }
 
     public void SetLoginState(bool newLoginState)
@@ -25,7 +24,7 @@ public class LoginButtonCtrl : MonoBehaviour
         }
         else
         {
-            tmpui.text = "Ihr seid nicht eingeloggt";
+            tmpui.text = "Klicke hier für Login";
             tmpui.color = Color.red;
         }
     }

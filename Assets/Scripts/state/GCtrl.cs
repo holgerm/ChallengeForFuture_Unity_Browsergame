@@ -5,107 +5,173 @@ using System.Net;
 using System.Net.Mail;
 using System.Net.Security;
 using System.Security.Cryptography.X509Certificates;
+using Assets.HeroEditor4D.Common.CommonScripts;
+using QM.Gaming;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public static class GCtrl
+/// <summary>
+/// Global Game Controller, keeps track about login state etc. and throws events when anything changes.
+/// </summary>
+public class GCtrl : MonoBehaviour
 {
-    #region GameState
+    private void Start()
+    {
+        LoggedInState = false; // TODO read from local data?
+        LoggedInStateChanged?.Invoke(LoggedInState);
+    }
 
-    private static bool _gameTokenWithPlayer = false; 
+    #region GameState
+    
     public static event Action<bool> GameTokenChanged;
 
     public static bool GameTokenWithPlayer
     {
-        get => _gameTokenWithPlayer;
+        get => state.tokenwithplayer;
         set
         {
-            if (value != _gameTokenWithPlayer)
+            if (value != state.tokenwithplayer)
             {
-                _gameTokenWithPlayer = value;
+                state.tokenwithplayer = value;
                 Action<bool> handler = GameTokenChanged; // thread safeness
                 handler?.Invoke(value);
             }
         }
     }
+    
+    public Card introCard;
+    public Card upcyclingCard;
+    public Card wasteAvoidanceCard;
+    public Card healthCard;
+    public Card environmentCard;
 
-    private static bool _upcyclingState = false;
+    private void setIntroCardState()
+    {
+        if (LoggedInState)
+            introCard.state = CardState.TODO;
+        else
+            introCard.state = CardState.LOCKED;
+    }
+
     public static event Action<bool> UpcyclingStateChanged;
 
     public static bool UpcyclingState
     {
-        get => _upcyclingState;
+        get => state.upcyclingState;
         set
         {
-            if (value != _upcyclingState)
+            if (value != state.upcyclingState)
             {
-                _upcyclingState = value;
+                state.upcyclingState = value;
                 Action<bool> handler = UpcyclingStateChanged; // thread safeness
                 handler?.Invoke(value);
             }
         }
     }
 
-    private static bool _environmentState = false;
     public static event Action<bool> EnvironmentStateChanged;
 
     public static bool EnvironmentState
     {
-        get => _environmentState;
+        get => state.environmentState;
         set
         {
-            if (value != _environmentState)
+            if (value != state.environmentState)
             {
-                _environmentState = value;
+                state.environmentState = value;
                 Action<bool> handler = EnvironmentStateChanged; // thread safeness
                 handler?.Invoke(value);
             }
         }
     }
 
-    private static bool _healthState = false;
     public static event Action<bool> HealthStateChanged;
 
     public static bool HealthState
     {
-        get => _healthState;
+        get => state.healthState;
         set
         {
-            if (value != _healthState)
+            if (value != state.healthState)
             {
-                _healthState = value;
+                state.healthState = value;
                 Action<bool> handler = HealthStateChanged; // thread safeness
                 handler?.Invoke(value);
             }
         }
     }
 
-    private static bool _wasteAvoidanceState = false;
     public static event Action<bool> WasteAvoidanceStateChanged;
 
     public static bool WasteAvoidanceState
     {
-        get => _wasteAvoidanceState;
+        get => state.wasteAvoidanceState;
         set
         {
-            if (value != _wasteAvoidanceState)
+            if (value != state.wasteAvoidanceState)
             {
-                _wasteAvoidanceState = value;
+                state.wasteAvoidanceState = value;
                 Action<bool> handler = WasteAvoidanceStateChanged; // thread safeness
                 handler?.Invoke(value);
             }
         }
     }
 
-    #endregion
+    private static GameState state = new GameState();
 
-    #region UserState
+    internal static string GetStateAsJSON()
+    {
+        return JsonUtility.ToJson(state);
+    }
+    
+    internal static void SetStateFromJSON(string json)
+    {
+        state = JsonUtility.FromJson<GameState>(json);
+    }
+    
+    public static string TeamName
+    {
+        get
+        {
+            return state.teamname;
+        }
+        set
+        {
+            state.teamname = value;
+        }
+    }
 
+    public static string Email
+    {
+        get
+        {
+            return state.email;
+        }
+        set
+        {
+            state.email = value;
+        }
+    }
+
+    public static string Password { get; set; }
+
+   #endregion
+    
+    #region Local State
+    
+    public static void LoginFailed(string message)
+    {
+        TeamName = null;
+        Email = null;
+        Password = null;
+        LoggedInState = false;
+    }
+    
     private static bool _loggedIn = false;
     public static event Action<bool> LoggedInStateChanged;
 
-    public static bool LoggedInState
+    private static bool LoggedInState
     {
         get => _loggedIn;
         set
@@ -117,19 +183,6 @@ public static class GCtrl
                 handler?.Invoke(value);
             }
         }
-    }
-
-    public static string TeamName { get; set; }
-    public static string Email { get; set; }
-
-    public static string Password { get; set; }
-
-    public static void LoginFailed(string message)
-    {
-        TeamName = null;
-        Email = null;
-        Password = null;
-        LoggedInState = false;
     }
 
     public static void LoginOk(string teamName, string email, string password)
