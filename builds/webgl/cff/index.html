@@ -9,7 +9,7 @@
   </head>
   <body>
     <div id="unity-container" class="unity-desktop">
-      <canvas id="unity-canvas" width=960 height=600></canvas>
+      <canvas id="unity-canvas" width=960 height=600 tabindex="-1"></canvas>
       <div id="unity-loading-bar">
         <div id="unity-logo"></div>
         <div id="unity-progress-bar-empty">
@@ -23,7 +23,8 @@
         <div id="unity-build-title">cff</div>
       </div>
     </div>
-    <script>
+    <script nonce="348234ee3">
+
       var container = document.querySelector("#unity-container");
       var canvas = document.querySelector("#unity-canvas");
       var loadingBar = document.querySelector("#unity-loading-bar");
@@ -58,9 +59,9 @@
       var buildUrl = "Build";
       var loaderUrl = buildUrl + "/cff.loader.js";
       var config = {
-        dataUrl: buildUrl + "/cff.data",
-        frameworkUrl: buildUrl + "/cff.framework.js",
-        codeUrl: buildUrl + "/cff.wasm",
+        dataUrl: buildUrl + "/cff.data.unityweb",
+        frameworkUrl: buildUrl + "/cff.framework.js.unityweb",
+        codeUrl: buildUrl + "/cff.wasm.unityweb",
         streamingAssetsUrl: "StreamingAssets",
         companyName: "questmill",
         productName: "cff",
@@ -83,15 +84,13 @@
         meta.content = 'width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, shrink-to-fit=yes';
         document.getElementsByTagName('head')[0].appendChild(meta);
         container.className = "unity-mobile";
+        canvas.className = "unity-mobile";
 
         // To lower canvas resolution on mobile devices to gain some
         // performance, uncomment the following line:
         // config.devicePixelRatio = 1;
 
-        canvas.style.width = window.innerWidth + 'px';
-        canvas.style.height = window.innerHeight + 'px';
 
-        unityShowBanner('WebGL builds are not supported on mobile devices.');
       } else {
         // Desktop style: Render the game canvas in a window that can be maximized to fullscreen:
 
@@ -106,40 +105,18 @@
       script.onload = () => {
         createUnityInstance(canvas, config, (progress) => {
           progressBarFull.style.width = 100 * progress + "%";
-        }).then((unityInstance) => {
-          this.unityInstance = unityInstance;
-          loadingBar.style.display = "none";
-          fullscreenButton.onclick = () => {
-            unityInstance.SetFullscreen(1);
-          };
-        }).catch((message) => {
-          alert(message);
-        });
-      };
+              }).then((unityInstance) => {
+                loadingBar.style.display = "none";
+                fullscreenButton.onclick = () => {
+                  unityInstance.SetFullscreen(1);
+                };
+              }).catch((message) => {
+                alert(message);
+              });
+            };
+
       document.body.appendChild(script);
-    </script>
 
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
-    <script type="module">
-      // Import the functions you need from the SDKs you need
-      // TODO: Add SDKs for Firebase products that you want to use
-      // https://firebase.google.com/docs/web/setup#available-libraries
-
-      // Your web app's Firebase configuration
-      const firebaseConfig = {
-        apiKey: "AIzaSyDnDrjZWec7faQLU4_QkS5_2Q4_epZY4Ag",
-        authDomain: "challenge-for-future.firebaseapp.com",
-        databaseURL: "https://challenge-for-future-default-rtdb.europe-west1.firebasedatabase.app",
-        projectId: "challenge-for-future",
-        storageBucket: "challenge-for-future.appspot.com",
-        messagingSenderId: "564017145948",
-        appId: "1:564017145948:web:371739a60b3bc4a8a71e99"
-      };
-
-      // Initialize Firebase
-      firebase.initializeApp(firebaseConfig);
     </script>
   </body>
 </html>

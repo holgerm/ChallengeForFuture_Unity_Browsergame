@@ -20928,7 +20928,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1719935967706024183, guid: 380f3f83e82c2477b9038ce8fcd66369, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 2802.0732
+      value: 2716.4634
       objectReference: {fileID: 0}
     - target: {fileID: 1719935967706024183, guid: 380f3f83e82c2477b9038ce8fcd66369, type: 3}
       propertyPath: m_SizeDelta.y
@@ -20936,7 +20936,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1719935967706024183, guid: 380f3f83e82c2477b9038ce8fcd66369, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 1401.0366
+      value: 1358.2317
       objectReference: {fileID: 0}
     - target: {fileID: 1719935967706024183, guid: 380f3f83e82c2477b9038ce8fcd66369, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -72078,6 +72078,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f231c4fb786f3946a6b90b886c48677, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_SendPointerHoverToParent: 1
   m_HorizontalAxis: Horizontal
   m_VerticalAxis: Vertical
   m_SubmitButton: Submit
@@ -94775,7 +94776,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 2.515244, y: 1}
+    m_SensorSize: {x: 1, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -96179,8 +96180,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: GameController, Assembly-CSharp
+      - m_Target: {fileID: 1267673659}
+        m_TargetAssemblyTypeName: GCO, Assembly-CSharp
         m_MethodName: StartScene
         m_Mode: 5
         m_Arguments:

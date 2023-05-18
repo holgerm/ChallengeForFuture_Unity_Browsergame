@@ -1,13 +1,9 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Net;
 using System.Net.Mail;
 using System.Net.Security;
 using System.Security.Cryptography.X509Certificates;
-using Assets.HeroEditor4D.Common.CommonScripts;
 using QM.Gaming;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -19,7 +15,7 @@ public class GCtrl : MonoBehaviour
     private void Start()
     {
         LoggedInState = false; // TODO read from local data?
-        LoggedInStateChanged?.Invoke(LoggedInState);
+        LoggedInStateChanged?.Invoke(LoggedInState); // TODO implement server connection using Microsoft PlayFab ????
     }
 
     #region GameState

@@ -15,7 +15,7 @@ public class LoginButtonCtrl : MonoBehaviour
         GCtrl.LoggedInStateChanged += SetLoginState;
     }
 
-    public void SetLoginState(bool newLoginState)
+    private void SetLoginState(bool newLoginState)
     {
         if (newLoginState)
         {
